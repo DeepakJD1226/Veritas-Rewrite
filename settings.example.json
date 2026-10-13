@@ -1,0 +1,5 @@
+{
+  "port": 8788,
+  "model": "llama3.2:latest",
+  "timeoutSeconds": 180
+}

@@ -1,0 +1,18 @@
+VERITAS REWRITE V3 UPGRADE
+==========================
+Stop v2 (Ctrl+C), extract v3 into a new folder, then run:
+1. SETUP_TARGET_WINDOWS.bat
+2. START_WINDOWS.bat
+Reuse your existing Ollama writing model. Copy settings.json if customized.
+Use SETUP_WINDOWS.bat only if the writing model is not set up already.
+
+Choose the new AI-signal target (default below 20%), paste 100–300 English
+words, and choose Deep rewrite + Fresh structure. The app measures candidates
+with the pinned Veritas classifier and tries at most three rounds.
+
+The original scanner is unchanged. A target is not guaranteed: the app reports
+Target not reached when needed and retains the original if no rewrite improves
+its measured score. Turn target mode off to edit shorter 1–300-word passages.
+
+See START_HERE.txt for the full run instructions and TEST_REPORT.md for the
+validation evidence. The older UPGRADE_V2.txt describes the previous release.

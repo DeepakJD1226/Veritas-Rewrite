@@ -1,0 +1,63 @@
+VERITAS REWRITE V3.1 — LOCAL REWRITING WITH A MEASURED TARGET
+=======================================================
+
+DEPLOYING ONLINE
+Follow DEPLOY_RENDER.md for the Docker-based Render setup. It requires a paid
+service, persistent disk and server password. Local setup continues below.
+
+UPGRADING FROM V2
+1. Stop the old server with Ctrl+C.
+2. Extract this entire ZIP to a NEW normal folder.
+3. Keep your existing Node.js 22+ and Ollama installations.
+4. Copy your old settings.json only if you customized the model or port.
+5. Double-click SETUP_TARGET_WINDOWS.bat once. Let setup finish.
+6. Double-click START_WINDOWS.bat. Check the footer says v3.1.
+
+FIRST INSTALLATION
+Install Node.js 22+ from https://nodejs.org/ and Ollama from
+https://ollama.com/download, then run SETUP_WINDOWS.bat for the writing
+model. Run SETUP_TARGET_WINDOWS.bat for the separate AI detector.
+Setup needs internet. Rewriting and scoring afterward run locally.
+No API key or Python installation is needed.
+
+USING THE NEW TARGET
+- Open http://127.0.0.1:8788 and keep the terminal open.
+- Keep "Work towards an AI-signal target" enabled.
+- Move the slider, for example to "Below 20%".
+- Paste English text of 100–300 words.
+- Choose Deep rewrite + Fresh structure; optionally add your own voice sample.
+- Click Refine my words. The backend measures the original, generates and
+  reviews alternatives, then measures those alternatives with the Veritas model.
+- It tries up to three rounds and keeps the lowest real measured score.
+- If it cannot reach your goal, it explicitly says Target not reached.
+- If all rewrites are worse or fail checks, the original is retained.
+- Inspect the before/after meters, measured attempts and candidate selector.
+- Read the wording, verify its meaning, and keep source citations.
+
+The slider does not change the detector formula or set a fake score. Below 20%
+is a goal, not a guarantee. Scores measure this classifier's AI-like signal,
+not the percentage of words written by AI. Other detectors can disagree.
+
+SHORTER DRAFTS
+Turn target mode OFF for normal rewriting of 1–300 words. No AI score is then
+measured automatically. Both input and output remain limited to 300 words.
+
+IF SOMETHING DOES NOT WORK
+- Detector setup needed: run SETUP_TARGET_WINDOWS.bat, then Check connection.
+- Writing model missing: run SETUP_WINDOWS.bat. Existing llama3.2 is reused.
+- Port busy: stop the old server. Do not run v2 and v3 on the same port.
+- Slow rewrite: target mode performs several local passes. You can Cancel.
+- Detector error: rerun its setup. A failure never becomes a low AI score.
+- Read README.md for configuration, API details and troubleshooting.
+
+REAL TEST ON YOUR LAPTOP
+Save your original passage in passage.txt, then run from this folder:
+  node scripts/evaluate-target.js passage.txt 20
+This saves target-evaluation-results.json, containing the text, rewrites,
+measured scores and settings. You can share that file to diagnose a failure.
+
+TESTING AND LIMITATIONS
+Read TEST_REPORT.md. Automated regressions and real detector parity checks ran
+here. Windows launchers, browser visuals, and live Ollama rewrite performance
+still need validation on your laptop. No guaranteed plagiarism percentage is
+claimed. The optional source-overlap check is literal phrase matching only.

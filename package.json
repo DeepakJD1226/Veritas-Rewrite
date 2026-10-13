@@ -1,0 +1,23 @@
+{
+  "name": "veritas-rewrite",
+  "version": "3.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A self-hosted 300-word writing editor with a local model and integrity checks.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test",
+    "doctor": "node scripts/doctor.js",
+    "evaluate": "node scripts/evaluate.js",
+    "setup:detector": "node scripts/setup-detector.js",
+    "test:detector": "node scripts/check-detector.js",
+    "start:render": "node scripts/start-render.js"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "3.8.1"
+  },
+  "license": "MIT"
+}

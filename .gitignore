@@ -1,0 +1,10 @@
+node_modules/
+*.log
+evaluation-results.json
+target-evaluation-results.json
+settings.json
+.DS_Store
+.detector-cache/
+.detector-models/
+.env
+.env.*

@@ -1,0 +1,11 @@
+node_modules
+.git
+.env
+.env.*
+settings.json
+.detector-cache
+.detector-models
+*.log
+*.zip
+evaluation-results.json
+target-evaluation-results.json

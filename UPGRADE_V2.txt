@@ -1,0 +1,58 @@
+HISTORICAL V2 NOTES — for the current release, read UPGRADE_V3.txt.
+
+VERITAS REWRITE V2 — UPGRADE AND TEST
+===================================
+
+1. Stop the old app with Ctrl+C in its terminal.
+2. Extract the updated ZIP into a NEW folder, for example D:\Veritas-Rewrite-v2.
+   Keep your previous folder if you want a backup.
+3. If llama3.2 already worked in version 1, no model download is needed.
+   Run START_WINDOWS.bat in the new folder and refresh the browser page.
+   The footer must say v2.0. Both versions use port 8788 by default.
+4. Choose Deep rewrite. For a fuller edit, choose Fresh structure under Revision.
+5. Optional: open Match my writing style and add up to 120 words that YOU wrote.
+   This supplies a voice example, not additional content for the rewrite.
+6. Paste the same original passage (maximum 300 words) and run it.
+   Deep mode generates alternatives and runs a second local editor pass.
+   CPU processing can take several minutes; Cancel remains available.
+7. Read the available versions using the Reviewed version menu.
+
+WHAT CHANGED
+- Previously, the first output passing basic preservation checks was returned.
+- Deep mode now attempts up to four drafts to obtain three distinct candidates.
+- Barely changed editable wording is rejected; protected quotations are excluded
+  from this comparison.
+- A separate pass of the same local model reviews meaning, fluency and naturalness.
+- Candidates with detected meaning issues are excluded; accepted versions are
+  ranked by editor ratings and descriptive writing cues.
+- You can supply your own voice sample without adding invented experiences.
+- Real detector reports can be imported and compared for the exact passages.
+
+HOW TO MEASURE YOUR 98% -> 98.1% CASE
+1. In Veritas Scanner, analyse the original and wait for its AI check to finish.
+2. Click Export report and keep that JSON file.
+3. Analyse the selected v2 rewrite, wait for completion, and export its report.
+4. In Veritas Rewrite, open Compare actual Veritas Scanner results.
+5. Import the original and rewrite JSON reports into their respective fields.
+6. Use Download comparison JSON to keep or share the complete test case.
+
+The comparator checks the exact text, completed coverage, detector model, and
+model revision. A full-model score cannot be compared directly with a fallback
+score. In the inspected scanner version, passages under 100 words use a different
+fallback path; a changed path must not be called an improvement.
+
+An increase from 98 to 98.1 is +0.1 percentage points, not an improvement. Neither
+value measures the proportion of words written by AI. The app will not report a
+score decrease until matching exported results actually show it.
+
+OPTIONAL LARGER LOCAL MODEL
+Run SETUP_LARGER_MODEL_WINDOWS.bat to download and select qwen2.5:7b.
+It is about 4.7 GB, uses more memory, and can be slower than the default 3B model.
+No lower detector score is promised. Use the comparison workflow to evaluate it
+on your passages. To switch back, set model to llama3.2:latest in settings.json.
+
+KNOWN VERIFICATION LIMIT
+Automated tests cover selection, limits, reviews, API handling and detector-report
+comparison. Live LLM quality and your reported 98% case have not been reproduced
+in the development environment because your exact passages/reports and the local
+model runtime are not available there. See TEST_REPORT.md.
