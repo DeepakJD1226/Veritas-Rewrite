@@ -1,0 +1,37 @@
+[
+  {
+    "id": "natural_inventory",
+    "text": "In the current digital era, the utilization of automated inventory management systems has become increasingly important for businesses. These systems facilitate the efficient tracking of stock levels and enable organizations to make informed decisions. For an automobile service centre, maintaining accurate records of spare parts can reduce delays during repairs. However, the benefits depend on staff entering each stock movement correctly. A digital tool can support this process, but it does not remove the need for regular physical stock checks.",
+    "tone": "natural",
+    "strength": "balanced"
+  },
+  {
+    "id": "numbers_negation_and_hedging",
+    "text": "The prototype was evaluated using 50 recordings. It correctly classified 46 samples and incorrectly classified 4 samples. These results do not establish that the model will perform equally well in a noisy environment. Further testing may reveal additional limitations, particularly when the microphone or recording location changes.",
+    "tone": "academic",
+    "strength": "balanced",
+    "protectedTerms": [
+      "prototype"
+    ]
+  },
+  {
+    "id": "quote_and_citation",
+    "text": "The report states, \"Keep the original evidence.\" This instruction is particularly relevant when a writing tool changes the wording of a technical explanation. According to the supplied example (Rao, 2024), a clearer sentence is useful only when it preserves the original claim. A citation should remain attached to the statement it supports [1].",
+    "tone": "simple",
+    "strength": "light"
+  },
+  {
+    "id": "source_overlap",
+    "text": "Maintaining accurate records of spare parts can reduce delays during repairs. A digital tool can support this process, but it does not remove the need for regular physical stock checks. Staff still need to enter stock movements correctly so that the records reflect what is actually available.",
+    "reference": "Maintaining accurate records of spare parts can reduce delays during repairs. A digital tool can support this process, but it does not remove the need for regular physical stock checks.",
+    "tone": "natural",
+    "strength": "substantial"
+  },
+  {
+    "id": "long_form_same_detector_path",
+    "text": "The implementation of a digital inventory system can support an automobile workshop by bringing stock information into a single record. When a delivery arrives, a staff member records the part name, quantity, and supplier. When a mechanic uses a part during a repair, the corresponding quantity is removed from the stock record. This process gives the team a more useful view of what is available, provided that staff enter each movement correctly. The system can also flag items that are approaching a chosen stock threshold. These alerts help staff decide when to contact suppliers, but they do not predict every future repair requirement. A damaged part, an incorrect entry, or an unrecorded return can still cause a difference between the digital record and the actual shelf stock. Regular physical checks are therefore necessary. Introducing the application also requires a clear division of responsibilities so that staff know who should record deliveries, issue parts, and investigate discrepancies. The expected benefit is a more consistent working process rather than the complete removal of human error.",
+    "tone": "natural",
+    "strength": "substantial",
+    "quality": "deep"
+  }
+]

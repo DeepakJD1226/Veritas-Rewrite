@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A private writing space. Refine up to 300 words with your own local model.">
+  <title>Veritas Rewrite — Find your natural voice</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="module" src="/app.js"></script>
+</head>
+<body data-deployment="local">
+  <a class="skip-link" href="#draft">Skip to editor</a>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Veritas Rewrite home"><span class="brand-mark" aria-hidden="true">v<span>↗</span></span><span>veritas<span class="brand-sub">REWRITE</span></span></a>
+    <div class="header-right"><span class="private-label"><span class="lock-icon" aria-hidden="true">▣</span> Your private writing space</span><button class="status-badge" id="status-button" type="button" aria-controls="setup-panel"><span class="status-dot" id="status-dot"></span><span id="model-status">Checking model</span></button></div>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <div><div class="eyebrow"><span></span> A LITTLE LESS ROBOTIC. A LITTLE MORE YOU.</div><h1 id="page-title">Good ideas.<br><em>Natural words.</em></h1><p class="intro-copy">Give your draft a clearer voice. Keep the meaning.<br>Make every one of your 300 words count.</p></div>
+      <div class="intro-note"><span class="note-number">300</span><span>words at a time.<br>Room for something good.</span><svg viewBox="0 0 150 50" aria-hidden="true"><path d="M8 25C35 5 92 6 136 26M11 36C61 18 109 19 139 31"/></svg></div>
+    </section>
+
+    <section id="setup-panel" class="setup-panel" aria-labelledby="setup-title" hidden>
+      <div><span class="small-label" id="engine-label">LOCAL ENGINE</span><h2 id="setup-title">Connect your writing model</h2><p id="setup-message">Start Ollama on this computer, then check the connection.</p></div>
+      <div class="setup-steps"><span id="setup-ollama">1. Start <strong>Ollama</strong></span><span id="setup-pull">2. Run <code id="model-command">ollama pull llama3.2</code></span><span><button id="check-connection" class="text-button" type="button">Check connection ↗</button></span></div>
+      <p class="setup-footnote" id="setup-footnote">One download to get started. Rewriting then runs locally. See START_HERE.txt in the project folder for setup.</p>
+    </section>
+
+    <form id="rewrite-form">
+      <section class="target-controls" aria-labelledby="target-title">
+        <div class="target-intro"><label class="target-switch" for="target-enabled"><input id="target-enabled" type="checkbox" checked><span id="target-title">Work towards an AI-signal target</span></label><p>Rewrite, review, then measure with the Veritas classifier. Up to 3 rounds. A target is a goal, not a guarantee.</p><p id="target-availability" role="status">Checking the local detector…</p></div>
+        <div class="target-slider"><div><label for="target-percent">Veritas target</label><output id="target-value" for="target-percent">Below 20%</output></div><input type="range" id="target-percent" min="5" max="80" step="1" value="20" aria-describedby="target-help"><div class="range-labels"><span>5% · stricter</span><span>80% · lighter goal</span></div><p id="target-help">Use an English draft of 100–300 words. This controls the search goal; actual scores come from the detector.</p></div>
+      </section>
+      <section class="workspace" aria-label="Writing workspace">
+        <div class="workspace-toolbar">
+          <fieldset class="tone-control"><legend>Tone</legend><div class="segmented"><label><input type="radio" name="tone" value="natural" checked><span>Natural</span></label><label><input type="radio" name="tone" value="academic"><span>Academic</span></label><label><input type="radio" name="tone" value="simple"><span>Simple</span></label></div></fieldset>
+          <div class="rewrite-controls"><label class="strength-control" for="quality"><span>Process</span><select id="quality"><option value="deep" selected>Deep rewrite</option><option value="quick">Quick edit</option></select></label><label class="strength-control" for="strength"><span>Revision</span><select id="strength"><option value="light">Light touch</option><option value="balanced" selected>Balanced</option><option value="substantial">Fresh structure</option></select></label></div>
+        </div>
+        <div class="editors">
+          <section class="editor-panel input-panel" aria-labelledby="draft-label">
+            <div class="panel-heading"><label for="draft" id="draft-label"><span class="step-number">01</span> Your draft</label><div class="panel-actions"><button type="button" id="sample-button" class="quiet-button">Try a sample</button><button type="button" id="clear-button" class="icon-button" aria-label="Clear draft and rewrite" title="Clear draft and rewrite">×</button></div></div>
+            <textarea id="draft" spellcheck="true" maxlength="12000" placeholder="Paste the words you want to work on…&#10;&#10;An idea, a paragraph, a first draft. Start here." aria-describedby="draft-count draft-help" required></textarea>
+            <div class="editor-footer"><div><button class="text-button" id="import-button" type="button"><span aria-hidden="true">↥</span> Import .txt</button><input type="file" id="file-input" accept=".txt,text/plain" hidden></div><span id="draft-count" class="word-count" aria-live="polite">0 <span>/ 300 words</span></span></div>
+          </section>
+          <section class="editor-panel output-panel" aria-labelledby="output-label">
+            <div class="panel-heading"><h2 id="output-label"><span class="step-number">02</span> Your rewrite</h2><label class="changes-toggle"><input id="show-changes" type="checkbox"> Highlight changes</label></div>
+            <div class="output-area" id="output-area" aria-busy="false">
+              <div class="empty-state" id="empty-state"><span class="empty-symbol" aria-hidden="true">✳</span><h3>A fresh way to say it.</h3><p>Your rewrite will appear here,<br>ready for your finishing touch.</p></div>
+              <div id="loading-state" class="loading-state" role="status" hidden><span class="spinner" aria-hidden="true"></span><h3>Finding the right words…</h3><p id="loading-message">Your model is working on the draft.</p><p class="elapsed" id="elapsed">0s</p></div>
+              <div id="rewrite-output" class="rewrite-output" tabindex="0" role="region" aria-label="Rewritten passage" hidden></div>
+            </div>
+            <div class="editor-footer"><div class="output-actions"><button id="copy-button" type="button" class="text-button" disabled>Copy</button><span aria-hidden="true">·</span><button id="download-button" type="button" class="text-button" disabled>Download .txt</button></div><span id="output-count" class="word-count">— <span>/ 300 words</span></span></div>
+          </section>
+        </div>
+        <div class="workspace-bottom"><p id="draft-help"><span class="mini-check" aria-hidden="true">✓</span> Numbers, quotes and citations are checked for changes.</p><div class="submit-actions"><button id="cancel-button" type="button" class="quiet-button" hidden>Cancel</button><button class="primary-button" id="rewrite-button" type="submit" disabled>Refine my words <span aria-hidden="true">↗</span></button></div></div>
+      </section>
+      <p id="error-message" class="error-message" role="alert" hidden></p>
+      <p id="status-message" class="status-message" role="status"></p>
+      <div class="options-grid">
+        <details class="option-card"><summary><span><span class="option-icon" aria-hidden="true">◇</span> Keep certain words</span><span class="optional-label">Optional <span aria-hidden="true">+</span></span></summary><div class="option-content"><label for="protected-terms">Names and technical phrases to keep exactly</label><input id="protected-terms" type="text" maxlength="2020" placeholder="e.g. CNN, Kongu Engineering College"><p>Separate terms with commas. Each term must appear in your draft. Up to 20 terms.</p></div></details>
+        <details class="option-card"><summary><span><span class="option-icon" aria-hidden="true">≋</span> Compare a source</span><span class="optional-label">Optional <span aria-hidden="true">+</span></span></summary><div class="option-content"><label for="reference">Source excerpt <span id="reference-count">0 / 300 words</span></label><textarea id="reference" rows="4" maxlength="12000" placeholder="Paste an excerpt to compare shared phrases before and after."></textarea><p>Comparison stays on your computer. Shared phrases are not a plagiarism score; borrowed ideas still need citations.</p></div></details>
+        <details class="option-card voice-card"><summary><span><span class="option-icon" aria-hidden="true">✎</span> Match my writing style</span><span class="optional-label">Optional <span aria-hidden="true">+</span></span></summary><div class="option-content"><label for="voice-sample">A short passage you wrote yourself <span id="voice-count">0 / 120 words</span></label><textarea id="voice-sample" rows="3" maxlength="6000" placeholder="Your own writing helps the editor understand your usual voice."></textarea><p>Used as a style example only. Its facts and experiences should not be added to the rewrite. The main draft still has a 300-word limit.</p></div></details>
+      </div>
+    </form>
+
+    <section class="review-panel" id="review-panel" aria-labelledby="review-title" hidden>
+      <div class="review-header"><div><span class="small-label">THE FINISHING TOUCH</span><h2 id="review-title">A quick look at what changed</h2></div><button class="quiet-button" id="use-rewrite" type="button">Use as next draft ↗</button></div>
+      <div class="candidate-toolbar"><label for="candidate-select">Selected version <select id="candidate-select"></select></label><p id="pipeline-summary"></p></div>
+      <p id="editor-summary" class="editor-summary"></p>
+      <section id="target-report" class="target-report" aria-labelledby="target-result" hidden>
+        <div class="target-report-header"><h3 id="target-result" role="status"></h3><span id="target-run-summary"></span></div>
+        <div class="signal-meters"><div><label for="before-meter">Original signal <strong id="before-signal">—</strong></label><meter id="before-meter" min="0" max="100" value="0"></meter></div><div><label for="after-meter">Selected version <strong id="after-signal">—</strong></label><meter id="after-meter" min="0" max="100" value="0"></meter></div></div>
+        <p id="target-outcome"></p><p id="target-method"></p>
+        <details><summary>Measured attempts</summary><div class="attempt-table-wrap"><table><thead><tr><th scope="col">Version</th><th scope="col">AI signal</th><th scope="col">Target</th></tr></thead><tbody id="target-attempts"></tbody></table></div></details>
+        <p class="target-footnote">Scores are measured by your backend and are never adjusted to match your slider. They do not measure how many words were written by AI. Recheck in your scanner; a different model, fallback, or runtime can give a different result.</p>
+      </section>
+      <div class="metrics"><div><span class="metric-number" id="metric-words">—</span><span>words in your rewrite</span></div><div><span class="metric-number" id="metric-change">—</span><span>wording changed <span title="Based on word sequence comparison, not authorship or meaning." aria-label="Based on word sequence comparison, not authorship or meaning.">ⓘ</span></span></div><div><span class="metric-number" id="metric-preserved">—</span><span>protected items retained</span></div></div>
+      <div id="reference-report" class="reference-report" hidden><h3>Phrase overlap with your excerpt</h3><p><span id="overlap-before">—</span><span class="overlap-arrow" aria-hidden="true">→</span><span id="overlap-after">—</span></p><small>Words in exact five-word matches, before → after. No web search is performed.</small></div>
+      <ul id="review-notes" class="review-notes"></ul>
+      <details class="detector-comparison"><summary>Compare actual Veritas Scanner results</summary><p>In the scanner, analyse the original and the selected rewrite separately. Use <strong>Export report</strong> for each, then import the two JSON files here.</p><div class="report-imports"><label>Original report<input type="file" id="original-report" accept=".json,application/json"><span id="original-report-status">Not imported</span></label><label>Selected rewrite report<input type="file" id="rewrite-report" accept=".json,application/json"><span id="rewrite-report-status">Not imported</span></label></div><p id="detector-result" role="status">No external scanner reports imported yet.</p><p id="detector-note"></p></details>
+      <div class="comparison-export"><button class="text-button" id="export-comparison" type="button">Download comparison JSON ↗</button><span>Contains your original, rewrites, settings and any imported score summaries.</span></div>
+    </section>
+
+    <div class="principles" aria-label="How Veritas works"><div><span class="principle-number">01 /</span><strong>Your own voice</strong><p>Clearer phrasing, without made-up stories or forced mistakes.</p></div><div><span class="principle-number">02 /</span><strong>Your own backend</strong><p>A local model, running on your computer. No paid writing API.</p></div><div><span class="principle-number">03 /</span><strong>You have the final say</strong><p>Read it through. Check the meaning. Keep the credit where it belongs.</p></div></div>
+  </main>
+  <footer><span class="footer-brand">veritas / rewrite</span><p>Better writing, thoughtfully. AI-detector targets and plagiarism percentages cannot be guaranteed.</p><span class="version">v3.1 · LOCAL</span></footer>
+  <div class="toast" id="toast" role="status" hidden></div>
+  <noscript>This app needs JavaScript enabled. Start it with START_WINDOWS.bat and open the local address shown.</noscript>
+</body>
+</html>
